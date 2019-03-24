@@ -14,14 +14,12 @@ describe('HKID', () => {
 
             expect(hkid.characters).toBeDefined();
             expect(hkid.checkDigit).toBeDefined();
-            expect(hkid.isChecksumValid).toBeDefined();
             expect(hkid.isValidFormat).toBeDefined();
             expect(hkid.isValidHKID).toBeDefined();
             expect(hkid.output).toBeDefined();
 
             expect(hkid.characters).toBe("Y0428343");
             expect(typeof hkid.checkDigit).toBe("function");
-            expect(typeof hkid.isChecksumValid).toBe("function");
             expect(typeof hkid.isValidFormat).toBe("function");
             expect(typeof hkid.isValidHKID).toBe("function");
             expect(typeof hkid.output).toBe("function");
@@ -32,14 +30,12 @@ describe('HKID', () => {
 
             expect(hkid.characters).toBeDefined();
             expect(hkid.checkDigit).toBeDefined();
-            expect(hkid.isChecksumValid).toBeDefined();
             expect(hkid.isValidFormat).toBeDefined();
             expect(hkid.isValidHKID).toBeDefined();
             expect(hkid.output).toBeDefined();
 
             expect(hkid.characters).toBe("");
             expect(typeof hkid.checkDigit).toBe("function");
-            expect(typeof hkid.isChecksumValid).toBe("function");
             expect(typeof hkid.isValidFormat).toBe("function");
             expect(typeof hkid.isValidHKID).toBe("function");
             expect(typeof hkid.output).toBe("function");
@@ -50,14 +46,12 @@ describe('HKID', () => {
 
             expect(hkid.characters).toBeDefined();
             expect(hkid.checkDigit).toBeDefined();
-            expect(hkid.isChecksumValid).toBeDefined();
             expect(hkid.isValidFormat).toBeDefined();
             expect(hkid.isValidHKID).toBeDefined();
             expect(hkid.output).toBeDefined();
 
             expect(hkid.characters).toBe(null);
             expect(typeof hkid.checkDigit).toBe("function");
-            expect(typeof hkid.isChecksumValid).toBe("function");
             expect(typeof hkid.isValidFormat).toBe("function");
             expect(typeof hkid.isValidHKID).toBe("function");
             expect(typeof hkid.output).toBe("function");
@@ -134,67 +128,51 @@ describe('HKID', () => {
     describe('isValidHKID', () => {
         it('should return true for valid HKID', () => {
             const isValidFormat = spyOn(validHKID, 'isValidFormat').and.returnValue(true);
-            const isChecksumValid = spyOn(validHKID, 'isChecksumValid').and.returnValue(true);
 
             const isValidHKID = validHKID.isValidHKID();
 
             expect(isValidFormat).toHaveBeenCalled();
-            expect(isChecksumValid).toHaveBeenCalled();
             expect(isValidHKID).toBe(true);
         });
 
         it('should return true for another valid HKID', () => {
             const isValidFormat = spyOn(anotherValidHKID, 'isValidFormat').and.returnValue(true);
-            const isChecksumValid = spyOn(anotherValidHKID, 'isChecksumValid').and.returnValue(true);
-
             const isValidHKID = anotherValidHKID.isValidHKID();
 
             expect(isValidFormat).toHaveBeenCalled();
-            expect(isChecksumValid).toHaveBeenCalled();
             expect(isValidHKID).toBe(true);
         });
 
         it('should return false for fake HKID', () => {
             const isValidFormat = spyOn(fakeHKID, 'isValidFormat').and.returnValue(false);
-            const isChecksumValid = spyOn(fakeHKID, 'isChecksumValid').and.returnValue(false);
-
             const isValidHKID = fakeHKID.isValidHKID();
 
             expect(isValidFormat).toHaveBeenCalled();
-            expect(isChecksumValid).not.toHaveBeenCalled();
             expect(isValidHKID).toBe(false);
         });
 
         it('should return false for another fake HKID', () => {
             const isValidFormat = spyOn(anotherFakeHKID, 'isValidFormat').and.returnValue(false);
-            const isChecksumValid = spyOn(anotherFakeHKID, 'isChecksumValid').and.returnValue(false);
 
             const isValidHKID = anotherFakeHKID.isValidHKID();
 
             expect(isValidFormat).toHaveBeenCalled();
-            expect(isChecksumValid).not.toHaveBeenCalled();
             expect(isValidHKID).toBe(false);
         });
 
         it('should return false for empty string', () => {
             const isValidFormat = spyOn(emptyString, 'isValidFormat').and.returnValue(false);
-            const isChecksumValid = spyOn(emptyString, 'isChecksumValid').and.returnValue(false);
-
             const isValidHKID = emptyString.isValidHKID();
 
             expect(isValidFormat).toHaveBeenCalled();
-            expect(isChecksumValid).not.toHaveBeenCalled();
             expect(isValidHKID).toBe(false);
         });
 
         it('should return false for null object', () => {
             const isValidFormat = spyOn(nullObj, 'isValidFormat').and.returnValue(false);
-            const isChecksumValid = spyOn(nullObj, 'isChecksumValid').and.returnValue(false);
-
             const isValidHKID = nullObj.isValidHKID();
 
             expect(isValidFormat).toHaveBeenCalled();
-            expect(isChecksumValid).not.toHaveBeenCalled();
             expect(isValidHKID).toBe(false);
         });
     });
@@ -252,61 +230,6 @@ describe('HKID', () => {
 
             expect(isValidHKID).toHaveBeenCalled();
             expect(result).toBe('Invalid HKID!');
-        });
-    });
-
-    describe('isChecksumValid', () => {
-        it('should return true for valid HKID', () => {
-            const isValidFormat = spyOn(validHKID, 'isValidFormat').and.returnValue(true);
-            const isChecksumValid = validHKID.isChecksumValid();
-
-            expect(isValidFormat).toHaveBeenCalled();
-            expect(isChecksumValid).toBe(true);
-        });
-
-        it('should return true for another valid HKID', () => {
-            const isValidFormat = spyOn(anotherValidHKID, 'isValidFormat').and.returnValue(true);
-
-            const isChecksumValid = anotherValidHKID.isChecksumValid();
-
-            expect(isValidFormat).toHaveBeenCalled();
-            expect(isChecksumValid).toBe(true);
-        });
-
-        it('should return false for fake HKID', () => {
-            const isValidFormat = spyOn(fakeHKID, 'isValidFormat').and.returnValue(true);
-
-            const isChecksumValid = fakeHKID.isChecksumValid();
-
-            expect(isValidFormat).toHaveBeenCalled();
-            expect(isChecksumValid).toBe(false);
-        });
-
-        it('should return false for another fake HKID', () => {
-            const isValidFormat = spyOn(anotherFakeHKID, 'isValidFormat').and.returnValue(false);
-
-            const isChecksumValid = anotherFakeHKID.isChecksumValid();
-
-            expect(isValidFormat).toHaveBeenCalled();
-            expect(isChecksumValid).toBe(false);
-        });
-
-        it('should return false for empty object', () => {
-            const isValidFormat = spyOn(emptyString, 'isValidFormat').and.returnValue(false);
-
-            const isChecksumValid = emptyString.isChecksumValid();
-
-            expect(isValidFormat).toHaveBeenCalled();
-            expect(isChecksumValid).toBe(false);
-        });
-
-        it('should return false for null object', () => {
-            const isValidFormat = spyOn(nullObj, 'isValidFormat').and.returnValue(false);
-
-            const isChecksumValid = nullObj.isChecksumValid();
-
-            expect(isValidFormat).toHaveBeenCalled();
-            expect(isChecksumValid).toBe(false);
         });
     });
 })
