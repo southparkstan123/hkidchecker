@@ -17,19 +17,11 @@ export class HKID {
         return /^([A-Z]{0,1})([A-Z]{1})([0-9]{6})([0-9A]{1})$/.test(this.characters);
     }
 
-    isValidHKID(): boolean{
-        return this.isValidFormat() && this.isChecksumValid();
-    }
-
     output(): string {
-        if(this.isValidHKID()){
-            return `${this.characters} is valid!`;
-        } else {
-            return `Invalid HKID!`;
-        }
+        return this.isValidHKID() ? `${this.characters} is valid!`: `Invalid HKID!`;
     }
 
-    isChecksumValid(): boolean{
+    isValidHKID(): boolean{
         if(this.isValidFormat()){
             let weight: number = 10;
             const result: number = _.chain(this.characters)
